@@ -1,0 +1,8 @@
+.idea
+*.gv
+*.png
+!vis*.png
+*.pyc
+*.pkl
+[0-9]**/
+**/*Breastplate_Stretcher*
