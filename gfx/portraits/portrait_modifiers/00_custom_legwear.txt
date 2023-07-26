@@ -55,7 +55,7 @@
 			has_ep2_dlc_trigger = yes
 		}
 		template = ep2_western_war_legwear
-}
+	}
 	## LIDA added
 	add_accessory_modifiers = {
 		gene = legwear
@@ -63,3 +63,4 @@
 		template = skimpy_plate_legs
 	}
 
+}
