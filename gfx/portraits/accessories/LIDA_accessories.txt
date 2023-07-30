@@ -47,10 +47,15 @@ female_accessories_lida_skimpy_plate_legs = {
 		entity = female_accessories_lida_skimpy_plate_legs_entity
 	}
 }
+
 female_accessories_lida_dress_harness = {
-	entity = {
-		required_tags = ""
-		shared_pose_entity = torso
-		entity = female_accessories_lida_dress_harness_entity
-	}
+    set_tags = "shrink_armpit,breasts_clothed"
+    entity = { required_tags = "undressed"        shared_pose_entity = torso }
+    entity = { required_tags = "revealing_2"        shared_pose_entity = torso        entity = female_accessories_lida_dress_harness_entity }    
+    entity = {
+        required_tags = ""
+        shared_pose_entity = torso
+        entity = female_accessories_lida_dress_harness_entity
+    }
 }
+
