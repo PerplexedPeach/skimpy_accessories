@@ -2065,6 +2065,17 @@ special_genes = {
 				boy = male
 				girl = female
 			}
+			asymmetric_dress = {
+				index = 101
+				male = {
+					1 = empty
+				}
+				female = {
+					1 = female_accessories_lida_asymmetric_dress
+				}
+				boy = male
+				girl = female
+			}
 		}	
 	}
 }
