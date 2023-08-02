@@ -43,3 +43,14 @@
 				boy = male
 				girl = female
 			}
+			plunge_dress = {
+				index = 102
+				male = {
+					1 = empty
+				}
+				female = {
+					1 = female_accessories_lida_plunge_dress
+				}
+				boy = male
+				girl = female
+			}

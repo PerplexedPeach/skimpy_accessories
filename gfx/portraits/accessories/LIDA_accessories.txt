@@ -69,3 +69,14 @@ female_accessories_lida_asymmetric_dress = {
         entity = female_accessories_lida_asymmetric_dress_entity
     }
 }
+
+female_accessories_lida_plunge_dress = {
+    set_tags = "shrink_armpit,breasts_clothed"
+    entity = { required_tags = "undressed"        shared_pose_entity = torso }
+    entity = { required_tags = "revealing_2"        shared_pose_entity = torso        entity = female_accessories_lida_plunge_dress_entity }    
+    entity = {
+        required_tags = ""
+        shared_pose_entity = torso
+        entity = female_accessories_lida_plunge_dress_entity
+    }
+}
