@@ -1,5 +1,6 @@
 import os
 import pickle
+import re
 
 UTF8_BOM = u'\ufeff'
 settings_file = "./settings.pkl"
@@ -68,6 +69,7 @@ def create_combined_compatible_file(relative_path, enclosing_scope_name, game_di
             raise Exception("Couldn't find scope " + scope + " in " + game_file)
     # we are now at the start of the scope name, go to the end of the scope by finding the matching brace
     istart = []
+    this_content_start_idx = idx
     i = 0
     for i, c in enumerate(game_content[idx:]):
         if c == '{':
@@ -82,6 +84,25 @@ def create_combined_compatible_file(relative_path, enclosing_scope_name, game_di
     # go back to the first non-whitespace character
     while game_content[idx - 1] in [" ", "\t", "\n", "\r"]:
         idx -= 1
+
+    # automate the process of incrementing the index of the containing block
+    last_block = game_content[this_content_start_idx:idx]
+    # find the last index in the block
+    to_find = r"index\s*=\s*(\d+)"
+    last_index = None
+    for match in re.finditer(to_find, last_block):
+        last_index = match.group(1)
+
+    if last_index is not None:
+        # increment this index in the src_content
+        our_index = int(last_index) + 1
+        # replace any index in the src_content with our_index but increment it with each match
+        # can't just iterate over matches since the source content will change
+        matches = re.findall(to_find, src_content)
+        for match in matches:
+            src_content = src_content.replace(match, str(our_index), 1)
+            our_index += 1
+
     # insert src_content before the last num_trailing_braces closing braces
     game_content = game_content[:idx] + '\n' + src_content + game_content[idx:]
     # write the combined content to a copy of the game file at relative_path
@@ -101,12 +122,17 @@ if game_dir.strip() == "":
     game_dir = None
 
 # put any other files that need to be made compatible here
-create_combined_compatible_file("common/genes/05_genes_special_accessories_clothes.txt", "accessory_genes:clothes", game_dir)
-create_combined_compatible_file("common/genes/06_genes_special_accessories_headgear.txt", "accessory_genes:headgear", game_dir)
-create_combined_compatible_file("common/genes/07_genes_special_accessories_misc.txt", "accessory_genes:legwear", game_dir)
-create_combined_compatible_file("common/genes/CFP_genes_special_accessories_necklaces.txt", "special_accessories_necklace", game_dir)
+create_combined_compatible_file("common/genes/05_genes_special_accessories_clothes.txt", "accessory_genes:clothes",
+                                game_dir)
+create_combined_compatible_file("common/genes/06_genes_special_accessories_headgear.txt", "accessory_genes:headgear",
+                                game_dir)
+create_combined_compatible_file("common/genes/07_genes_special_accessories_misc.txt", "accessory_genes:legwear",
+                                game_dir)
+create_combined_compatible_file("common/genes/CFP_genes_special_accessories_necklaces.txt",
+                                "special_accessories_necklace", game_dir)
 create_combined_compatible_file("gfx/portraits/portrait_modifiers/00_custom_clothes.txt", "custom_clothes", game_dir)
 create_combined_compatible_file("gfx/portraits/portrait_modifiers/00_custom_headgear.txt", "custom_headgear", game_dir)
 create_combined_compatible_file("gfx/portraits/portrait_modifiers/00_custom_legwear.txt", "custom_legwear", game_dir)
 create_combined_compatible_file("gfx/portraits/portrait_modifiers/CFP_necklaces.txt", "cfp_necklaces", game_dir)
-create_combined_compatible_file("gfx/portraits/portrait_modifiers/CFP_custom_necklaces.txt", "custom_necklace", game_dir)
+create_combined_compatible_file("gfx/portraits/portrait_modifiers/CFP_custom_necklaces.txt", "custom_necklace",
+                                game_dir)
