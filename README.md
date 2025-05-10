@@ -30,3 +30,8 @@ F:\SteamLibrary\steamapps\workshop\content\1158310\2291024373
 ```
 F:\SteamLibrary\steamapps\workshop\content\1158310\2962333032
 ```
+
+# Update for armature changes
+Sometimes game updates changes the armature for the characters and will require converting existing meshes over.
+Typically someone will create a script on the CK3 Mod Co-op discord channel to do this, and it will involve
+moving blend scenes under a gendered folder tree and running a script there to convert all mesh recursively.
